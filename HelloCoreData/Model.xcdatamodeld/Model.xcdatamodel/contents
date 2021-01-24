@@ -1,9 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20C69" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Movie" representedClassName="Movie" syncable="YES" codeGenerationType="class">
+    <entity name="Actor" representedClassName="Actor" syncable="YES" codeGenerationType="class">
         <attribute name="name" attributeType="String"/>
+        <relationship name="movies" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Movie" inverseName="cast" inverseEntity="Movie"/>
+        <relationship name="roles" toMany="YES" deletionRule="Cascade" destinationEntity="Character" inverseName="actor" inverseEntity="Character"/>
+    </entity>
+    <entity name="Character" representedClassName="Character" syncable="YES" codeGenerationType="class">
+        <attribute name="name" attributeType="String"/>
+        <relationship name="actor" maxCount="1" deletionRule="Nullify" destinationEntity="Actor" inverseName="roles" inverseEntity="Actor"/>
+        <relationship name="movies" maxCount="1" deletionRule="Deny" destinationEntity="Movie" inverseName="characters" inverseEntity="Movie"/>
+    </entity>
+    <entity name="Movie" representedClassName="Movie" syncable="YES" codeGenerationType="class">
+        <attribute name="duration" attributeType="Integer 64" usesScalarValueType="YES"/>
+        <attribute name="rating" optional="YES" attributeType="Double" usesScalarValueType="YES"/>
+        <attribute name="releaseDate" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="title" attributeType="String"/>
+        <attribute name="watched" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <relationship name="cast" toMany="YES" deletionRule="Nullify" destinationEntity="Actor" inverseName="movies" inverseEntity="Actor"/>
+        <relationship name="characters" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Character" inverseName="movies" inverseEntity="Character"/>
     </entity>
     <elements>
-        <element name="Movie" positionX="-63" positionY="-18" width="128" height="44"/>
+        <element name="Movie" positionX="-171.8817138671875" positionY="-454.0181579589844" width="128" height="148"/>
+        <element name="Actor" positionX="-40.4222412109375" positionY="-142.54443359375" width="128" height="88"/>
+        <element name="Character" positionX="79.885498046875" positionY="-393.7834167480469" width="128" height="88"/>
     </elements>
 </model>
